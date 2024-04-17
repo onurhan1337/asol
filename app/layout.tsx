@@ -1,5 +1,7 @@
+import BaseLayout from "@/components/base-layout";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -18,7 +20,18 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={`${inter.className} overflow-y-scroll antialiased`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="flex min-h-screen w-full flex-col bg-muted/40">
+              <BaseLayout>{children}</BaseLayout>
+            </main>
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
